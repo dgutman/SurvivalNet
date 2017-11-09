@@ -8,13 +8,13 @@ import numpy as np
 # Defines model/dataset pairs.
 ModelPaths = ['results/']
 Models = ['final_model']
-Data = ['./data/survivalData.csv']
+Data = ['./survivalData.csv']
 
 # Loads datasets and performs feature analysis.
 for i, Path in enumerate(ModelPaths):
 
     # Loads normalized data.
-    Censored, Survival, Normalized, Symbols = data_provider.data_provider(Data)
+    Censored, Survival, Normalized, Symbols = data_provider.data_provider(Data[i])
 
     # Extracts relevant values.
     # Raw = None

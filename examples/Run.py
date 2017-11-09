@@ -1,7 +1,6 @@
 import argparse
 import sys
-import Bayesian_Optimization as BayesOpt
-#import bayesopt as BayesOpt
+# import Bayesian_Optimization as BayesOpt
 import os
 import scipy.io as sio
 from survivalnet.optimization import SurvivalAnalysis
@@ -30,12 +29,12 @@ def Run(input_path, output_path, do_bayes_opt, feature_key, epochs):
     """
     # Loading dataset. The model requires a nxp matrix of input data, nx1 array
     # of time to event labels, and nx1 array of censoring status.
-    C, T, X, _ = data_provider.data_provider(input_path)
+    T, C, X, _ = data_provider.data_provider(input_path)
     T = np.asarray(T).astype('float32')
     # C is censoring status where 1 means incomplete folow-up. We change it to
     # Observed status where 1 means death.
     O = 1 - np.asarray(C).astype('int32')
-    X = X.astype('float32')
+    X = np.asarray(X).astype('float32')
 
     # Optimization algorithm.
     opt = 'GDLS'
@@ -133,7 +132,7 @@ if __name__ == '__main__':
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter,
                                      description='Script to train survival net')
     parser.add_argument('-ip', '--input_path', dest='input_path',
-                        default='./data/Brain_Integ.mat',
+                        default='./survivalData.csv',
                         help='Path specifying location of dataset.')
     parser.add_argument('-sp', '--output_path', dest='output_path',
                         default='./results',

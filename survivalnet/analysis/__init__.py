@@ -12,6 +12,7 @@ from .WriteRNK import WriteRNK
 from .ReadGMT import ReadGMT
 from .RiskCluster import RiskCluster
 from .FeatureAnalysisLite import FeatureAnalysisLite
+from .FeatureAnalysis import FeatureAnalysis
 
 # list functions and classes available for public use
 __all__ = (
@@ -25,5 +26,7 @@ __all__ = (
     'RiskCohort',
     'WriteGCT',
     'WriteRNK',
-    'FeatureAnalysisLite'
+    'FeatureAnalysisLite',
+    'FeatureAnalysis'
+
 )
