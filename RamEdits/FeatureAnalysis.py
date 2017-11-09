@@ -60,12 +60,12 @@ def FeatureAnalysis(Model, Normalized, Raw, Symbols, Survival, Censored,
 
     # wrap long symbols and remove leading and trailing whitespace
     Corrected, Types = _SplitSymbols(Symbols)
-    Wrapped = _WrapSymbols(Corrected)
+    # Wrapped = _WrapSymbols(Corrected)
 
     # generate risk derivative profiles for cohort
     print "Generting risk gradient profiles..."
     Gradients = RiskCohort(Model, Normalized)
-    
+
     # normalize risk derivative profiles
     Gradients = Gradients / np.outer(np.linalg.norm(Gradients, axis=1),
                                      np.ones((1, Gradients.shape[1])))
@@ -73,11 +73,12 @@ def FeatureAnalysis(Model, Normalized, Raw, Symbols, Survival, Censored,
     # re-order symbols, raw features, gradients by mean gradient value, trim
     Means = np.asarray(np.mean(Gradients, axis=0))
     Order = np.argsort(-np.abs(Means))
-    cSymbols = [Wrapped[i] for i in Order]
-    cTypes = [Types[i] for i in Order]
-    cRaw = Raw[:, Order]
+    # cSymbols = [Wrapped[i] for i in Order]
+    # cTypes = [Types[i] for i in Order]
+    # cRaw = Raw[:, Order]
     cGradients = Gradients[:, Order]
 
+    """
     # generate ranked box plot series
     print "Generating risk gradient boxplot..."
     RBFig = RankedBox(cGradients[:, 0:NBox],
@@ -111,16 +112,18 @@ def FeatureAnalysis(Model, Normalized, Raw, Symbols, Survival, Censored,
                      [cTypes[i] for i in np.arange(NKM)],
                      Survival, Censored)
 
+    """
+
     # save figures
     print "Saving figures and outputs..."
     if Path is not None:
         # save standard figures
-        RBFig.savefig(Path + 'RankedBox.pdf')
-        PSGradFig.savefig(Path + 'PairedScatter.Gradient.pdf')
-        PSFeatFig.savefig(Path + 'PairedScatter.Feature.pdf')
-        CFig.savefig(Path + 'Heatmap.pdf')
-        for i, Figure in enumerate(KMFigs):
-            Figure.savefig(Path + 'KM.' + Symbols[Order[i]].strip() + '.pdf')
+        # RBFig.savefig(Path + 'RankedBox.pdf')
+        # PSGradFig.savefig(Path + 'PairedScatter.Gradient.pdf')
+        # PSFeatFig.savefig(Path + 'PairedScatter.Feature.pdf')
+        # CFig.savefig(Path + 'Heatmap.pdf')
+        # for i, Figure in enumerate(KMFigs):
+        #     Figure.savefig(Path + 'KM.' + Symbols[Order[i]].strip() + '.pdf')
 
         # save tables
         WriteRNK(Corrected, Means, Path + 'Gradients.rnk')
