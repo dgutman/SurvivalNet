@@ -1,7 +1,7 @@
 import argparse
 import sys
-#import Bayesian_Optimization as BayesOpt
-import bayesopt as BayesOpt
+import Bayesian_Optimization as BayesOpt
+#import bayesopt as BayesOpt
 import os
 import scipy.io as sio
 from survivalnet.optimization import SurvivalAnalysis
